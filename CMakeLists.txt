@@ -17,12 +17,12 @@ target_link_libraries(${PROJECT_NAME}_lib ${catkin_LIBRARIES})
 
 add_executable(nmea_serial_node src/serial_node.cpp)
 set_target_properties(nmea_serial_node PROPERTIES OUTPUT_NAME serial_node PREFIX "")
-add_dependencies(nmea_serial_node nmea_msgs_gencpp)
+add_dependencies(nmea_serial_node nmea_msgs_generate_messages_cpp)
 target_link_libraries(nmea_serial_node ${catkin_LIBRARIES} ${PROJECT_NAME}_lib)
 
 add_executable(nmea_socket_node src/socket_node.cpp)
 set_target_properties(nmea_socket_node PROPERTIES OUTPUT_NAME socket_node PREFIX "")
-add_dependencies(nmea_socket_node nmea_msgs_gencpp)
+add_dependencies(nmea_socket_node nmea_msgs_generate_messages_cpp)
 target_link_libraries(nmea_socket_node ${catkin_LIBRARIES} ${PROJECT_NAME}_lib)
 
 #############
@@ -46,7 +46,7 @@ install(DIRECTORY launch
 if (CATKIN_ENABLE_TESTING)
   add_rostest_gtest(nmea_socket_node_test test/socket_node.test test/test_socket_node.cpp)
   target_link_libraries(nmea_socket_node_test ${catkin_LIBRARIES})
-  add_dependencies(nmea_socket_node_test nmea_socket_node nmea_msgs_gencpp)
+  add_dependencies(nmea_socket_node_test nmea_socket_node nmea_msgs_generate_messages_cpp)
 
   roslaunch_add_file_check(launch/tee.launch
     DEPENDENCIES nmea_socket_node nmea_serial_node)
